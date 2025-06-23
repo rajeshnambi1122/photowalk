@@ -121,7 +121,6 @@ export default function HomePage() {
             <Camera className="h-6 w-6" />
             <span className="text-lg font-semibold">PhotoWalk Tirunelveli</span>
           </div>
-          <p className="text-gray-400">© 2025 PhotoWalk Tirunelveli. All rights reserved.</p>
         </div>
       </footer>
     </div>

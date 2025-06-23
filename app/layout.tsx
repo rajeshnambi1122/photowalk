@@ -4,6 +4,7 @@ import { Mail, Instagram } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import Header from "@/components/Header"
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata: Metadata = {
   title: 'PhotoWalk ~ SL Studio',
@@ -38,6 +39,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   )

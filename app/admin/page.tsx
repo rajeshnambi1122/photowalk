@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -31,14 +31,43 @@ export default function AdminPage() {
   const ADMIN_USERNAME = "admin"
   const ADMIN_PASSWORD = "photowalk2025"
 
+  useEffect(() => {
+    const admin = localStorage.getItem("isAdminLoggedIn")
+    if (admin) {
+      try {
+        const { loggedInAt } = JSON.parse(admin)
+        const now = Date.now()
+        const sevenDays = 7 * 24 * 60 * 60 * 1000
+        if (now - loggedInAt <= sevenDays) {
+          setIsAuthenticated(true)
+          fetchParticipants()
+        } else {
+          localStorage.removeItem("isAdminLoggedIn")
+        }
+      } catch {
+        localStorage.removeItem("isAdminLoggedIn")
+      }
+    }
+    // eslint-disable-next-line
+  }, [])
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     if (credentials.username === ADMIN_USERNAME && credentials.password === ADMIN_PASSWORD) {
       setIsAuthenticated(true)
+      localStorage.setItem(
+        "isAdminLoggedIn",
+        JSON.stringify({ isAdminLoggedIn: true, loggedInAt: Date.now() })
+      )
       fetchParticipants()
     } else {
       alert("Invalid credentials")
     }
+  }
+
+  const handleLogout = () => {
+    setIsAuthenticated(false)
+    localStorage.removeItem("isAdminLoggedIn")
   }
 
   const fetchParticipants = async () => {
@@ -100,11 +129,6 @@ export default function AdminPage() {
                 Login
               </Button>
             </form>
-            <div className="mt-4 p-3 bg-gray-100 rounded text-sm">
-              <p className="font-medium">Demo Credentials:</p>
-              <p>Username: admin</p>
-              <p>Password: photowalk2025</p>
-            </div>
           </CardContent>
         </Card>
       </div>
@@ -121,7 +145,7 @@ export default function AdminPage() {
               <Camera className="h-6 w-6 text-blue-600" />
               <span className="text-lg font-semibold">Admin Dashboard</span>
             </div>
-            <Button variant="outline" onClick={() => setIsAuthenticated(false)}>
+            <Button variant="outline" onClick={handleLogout}>
               Logout
             </Button>
           </div>

@@ -8,8 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Users, Mail, Phone, Camera, Eye, EyeOff } from "lucide-react"
+import { Users, Camera, Eye, EyeOff } from "lucide-react"
 
 interface Participant {
   _id: string
@@ -17,6 +16,7 @@ interface Participant {
   email: string
   phone: string
   age: number
+  portfolio: string
   registeredAt: string
 }
 
@@ -26,7 +26,6 @@ export default function AdminPage() {
   const [participants, setParticipants] = useState<Participant[]>([])
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [showPhone, setShowPhone] = useState(false)
 
   // Static credentials
   const ADMIN_USERNAME = "admin"
@@ -54,21 +53,6 @@ export default function AdminPage() {
       console.error("Failed to fetch participants:", error)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const getExperienceBadgeColor = (experience: string) => {
-    switch (experience) {
-      case "beginner":
-        return "bg-blue-100 text-blue-800"
-      case "intermediate":
-        return "bg-green-100 text-green-800"
-      case "advanced":
-        return "bg-purple-100 text-purple-800"
-      case "professional":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
     }
   }
 
@@ -179,6 +163,7 @@ export default function AdminPage() {
                     <TableHead>Email</TableHead>
                     <TableHead>Phone</TableHead>
                     <TableHead>Age</TableHead>
+                    <TableHead>Portfolio</TableHead>
                     <TableHead>Registered</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -189,6 +174,7 @@ export default function AdminPage() {
                       <TableCell>{participant.email}</TableCell>
                       <TableCell>{participant.phone}</TableCell>
                       <TableCell>{participant.age}</TableCell>
+                      <TableCell>{participant.portfolio}</TableCell>
                       <TableCell>{new Date(participant.registeredAt).toLocaleDateString()} {new Date(participant.registeredAt).toLocaleTimeString()}</TableCell>
                     </TableRow>
                   ))}

@@ -6,23 +6,6 @@ import { Calendar, MapPin, Camera, Users, Clock, Award } from "lucide-react"
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Camera className="h-8 w-8 text-blue-600" />
-              <h1 className="text-2xl font-bold text-gray-900">PhotoWalk Tirunelveli</h1>
-            </div>
-            <Link href="/admin">
-              <Button variant="outline" size="sm">
-                Admin
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">

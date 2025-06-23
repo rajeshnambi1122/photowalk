@@ -3,10 +3,12 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
+
 export default function Header() {
   const pathname = usePathname()
   if (pathname.startsWith("/admin")) return null
   return (
+    <>
     <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-center space-x-8 md:space-x-32">
@@ -22,5 +24,6 @@ export default function Header() {
         </div>
       </div>
     </header>
+   </>
   )
 } 
